@@ -1,13 +1,13 @@
 # Create a Route 53 hosted zone for the domain
 
 resource "aws_route53_zone" "main" {
-    name = "ihebterraform.devops"
+    name = "waelterraform.devops"
   
 }
 # Data source to reference the Route 53 hosted zone created above
 
 data "aws_route53_zone" "main" {
-  name = "ihebterraform.devops." # Ensure the domain name ends with a dot
+  name = "waelterraform.devops." # Ensure the domain name ends with a dot
   depends_on = [ aws_route53_zone.main ]
 }
 
@@ -15,7 +15,7 @@ data "aws_route53_zone" "main" {
 
 resource "aws_route53_record" "record" {
     zone_id = aws_route53_zone.main.id
-    name = "www.ihebterraform.devops"
+    name = "www.waelterraform.devops"
     type = "A"
     alias {
       name = aws_lb.app_alb.dns_name
@@ -30,9 +30,9 @@ resource "aws_route53_record" "record" {
 
 resource "aws_acm_certificate" "certificate" {
 
-    domain_name       = "www.ihebterraform.devops"
+    domain_name       = "www.waelterraform.devops"
     validation_method = "DNS"
-    subject_alternative_names = ["*.ihebterraform.devops"]
+    subject_alternative_names = ["*.waelterraform.devops"]
 
     tags = {
         Environment = "development"
